@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./lib/vericast/web3/client/static/dist/out-tsc",
+    "module": "commonjs",
+    "allowJs": true
+  },
+  "exclude": ["node_modules/*", "test.ts", "**/*.spec.ts"]
+}
