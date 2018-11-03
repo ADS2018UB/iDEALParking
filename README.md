@@ -1,6 +1,38 @@
 # iDEALParking
 
-## Fron-end
+## Back-end
+The back-end is a Flask powered App.
+
+### Install
+Set up a virtualenv in Python 3:
+
+```bash
+virtualenv -p python3 venv
+
+source venv/bin/activate
+```
+
+Install the required libaries
+
+```
+pip install -r requirements.txt
+```
+
+Optionally, you can load a set of initial data from Idealista. Use the provided Flask CLI script:
+
+```bash
+export FLASK_APP=ideal_parking
+flask loaddata data/idealistaAPI-2018-Oct-30-1713.csv
+```
+
+### Run dev server
+Use Flask CLI to load the app:
+
+```bash
+FLASK_APP=ideal_parking:app flask run
+```
+
+## Front-end
 The front-end is a Preact PWA. See the [front-end readme](./www/README.md) for more details.
 
 ### Testing
