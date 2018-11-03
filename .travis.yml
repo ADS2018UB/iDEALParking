@@ -1,0 +1,21 @@
+matrix:
+  include:
+    - language: node_js
+      sudo: false
+      node_js:
+        - "10"
+      os:
+        - linux
+      before_script:
+        - cd www/
+      script:
+        - npm ci
+        - npm run test:ci
+
+    - language: python
+      python: 3.6
+      sudo: false
+      install:
+        - pip install tox-travis
+      script:
+        - tox
