@@ -9,7 +9,8 @@
     "serve": "preact build && preact serve",
     "dev": "preact watch --template src/template.html",
     "lint": "eslint src",
-    "test": "jest"
+    "test": "jest",
+    "test:ci": "jest -ci"
   },
   "eslintConfig": {
     "extends": "eslint-config-synacor"
@@ -43,9 +44,9 @@
     ],
     "globals": {
       "ts-jest": {
-        "tsConfigFile": "./tsconfig.test.json"
-      },
-      "__TRANSFORM_HTML__": true
+        "tsConfig": "./tsconfig.test.json",
+        "stringifyContentPathRegex": true
+      }
     },
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
@@ -76,6 +77,21 @@
       "^react-dom$": "preact-compat",
       "^create-react-class$": "preact-compat/lib/create-react-class",
       "^react-addons-css-transition-group$": "preact-css-transition-group"
-    }
+    },
+    "coverageDirectory": "./coverage",
+    "coverageReporters": [
+      "cobertura",
+      "json",
+      "lcov",
+      "text",
+      "html"
+    ],
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "index.ts$",
+      "jestGlobalMocks.ts",
+      "setupJest.ts"
+    ]
   }
 }
