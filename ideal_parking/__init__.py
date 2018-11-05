@@ -29,6 +29,9 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    from ideal_parking.api import quote
+    app.register_blueprint(quote.bp)
+
     # a simple page that says hello
     @app.route('/')
     def hello():
