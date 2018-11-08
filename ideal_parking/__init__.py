@@ -2,6 +2,7 @@ import os
 import click
 from flask import Flask, jsonify
 from flask_mongoengine import MongoEngine
+from flask_cors import CORS
 
 app = None
 
@@ -18,6 +19,7 @@ def create_app(test_config=None):
         }
     )
     MongoEngine(app)
+    CORS(app)
 
     if test_config:
         # load the test config if passed in
