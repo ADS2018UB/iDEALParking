@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import csv
 
 from ideal_parking.models.parking_slot import ParkingSlot
