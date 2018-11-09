@@ -52,3 +52,10 @@ create_app()
 def loaddata(csv_path):
     from ideal_parking.scripts.load_fixtures import load_idealista_csv
     load_idealista_csv(csv_path)
+
+
+@app.cli.command()
+@click.argument('shape_path')
+def loadshapes(shape_path):
+    from ideal_parking.scripts.import_barcelona_shapes import import_geojson
+    import_geojson(shape_path)
