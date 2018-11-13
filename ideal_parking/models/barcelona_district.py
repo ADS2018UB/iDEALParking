@@ -28,7 +28,7 @@ class BarcelonaDistrict(Document):
         districts = BarcelonaDistrict.objects(
             geometry__geo_intersects={
                 'type': 'Point',
-                'coordinates': [lat, lng]
+                'coordinates': [lng, lat]
             }
         )
         return districts[0] if districts else None

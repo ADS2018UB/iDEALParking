@@ -35,6 +35,23 @@ export FLASK_APP=ideal_parking
 flask loaddata data/idealistaAPI-2018-Oct-30-1713.csv
 ```
 
+### Testing
+The back-end can be tested using `tox`:
+
+```bash
+tox
+```
+
+Tox will create the testing environment. Remember to recreate the
+testing environment if requirements file chaged running the tests with the recreate option:
+
+
+```bash
+tox -r
+```
+
+To test in local, you should provide a MongoDB database. The Travis configuration will set up a Mongo instance for you.
+
 ### Run dev server
 
 Use Flask CLI to load the app:
