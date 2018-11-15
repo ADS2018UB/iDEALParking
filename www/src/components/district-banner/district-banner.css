@@ -1,0 +1,18 @@
+.district_banner {
+  display: block;
+  width: 400px;
+  max-width: 100vh;
+}
+
+.district_banner__header {
+  background-color: lightcoral;
+  font-size: 1.1em;
+  padding: 1em;
+  font-weight: 600;
+  color: white;
+}
+
+.district_banner__img {
+  display: block;
+  width: 100%;
+}
