@@ -8,10 +8,17 @@ The back-end is a Flask powered App.
 
 Set up a virtualenv in Python 3:
 
+For Linux:
+
 ```bash
 virtualenv -p python3 venv
-
 source venv/bin/activate
+```
+
+For Windows:
+```bash
+virtualenv -p python3 venv
+source venv/Scripts/activate
 ```
 
 Install the required libaries
@@ -21,7 +28,7 @@ pip install -r requirements.txt
 ```
 
 The app requires the shapes of the Barcelona districts. Load them
-using the next Flask script,
+using the next Flask script for Linux,
 
 ```bash
 export FLASK_APP=ideal_parking
@@ -35,11 +42,14 @@ export FLASK_APP=ideal_parking
 flask loaddata data/idealistaAPI-2018-Oct-30-1713.csv
 ```
 
-If you are using Windows, you should use:
+For Windows, you should use:
 
 ```bash
 set FLASK_APP=ideal_parking
+flask loadshapes data/districtes_geo.json
 ```
+
+and load the initial data if required
 
 
 ### Testing
