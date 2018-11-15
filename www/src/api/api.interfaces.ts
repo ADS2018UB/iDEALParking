@@ -7,10 +7,16 @@ export interface BaseResponse {
   result: any | null;
 }
 
+export interface District {
+  district_number: number;
+  name: string;
+}
+
 export interface GetQuoteOkResponse {
   errors: null;
-  results: {
+  result: {
     price: number;
+    district: District;
   };
 }
 

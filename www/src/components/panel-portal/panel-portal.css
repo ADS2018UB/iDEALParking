@@ -1,0 +1,19 @@
+.panel_portal {
+  transform: translateX(-100%);
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: white;
+  width: 400px;
+  overflow: auto;
+  max-width: 100vw;
+  z-index: 1000;
+}
+
+.panel_portal[open] {
+  box-shadow: 2px 0 10px -2px #888;
+  transform: translateX(0);
+  transition: 100ms ease-in;
+}
