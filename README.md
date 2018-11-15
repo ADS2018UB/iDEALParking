@@ -35,6 +35,13 @@ export FLASK_APP=ideal_parking
 flask loaddata data/idealistaAPI-2018-Oct-30-1713.csv
 ```
 
+If you are using Windows, you should use:
+
+```bash
+set FLASK_APP=ideal_parking
+```
+
+
 ### Testing
 The back-end can be tested using `tox`:
 
