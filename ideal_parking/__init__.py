@@ -1,6 +1,6 @@
 import os
 import click
-from flask import Flask, jsonify
+from flask import Flask, send_from_directory
 from flask_mongoengine import MongoEngine
 from flask_cors import CORS
 
@@ -11,11 +11,11 @@ def create_app(test_config=None):
     global app
 
     # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__, instance_relative_config=True, static_folder=None)
     app.config.from_mapping(
         SECRET_KEY='dev',
         MONGODB_SETTINGS={
-            'host': os.getenv('MONGODB_URL', 'mongodb://localhost/ideal_parking_dev')
+            'host': os.getenv('MONGO_URL', 'mongodb://localhost/ideal_parking_dev')
         }
     )
     MongoEngine(app)
@@ -35,9 +35,10 @@ def create_app(test_config=None):
     app.register_blueprint(quote.bp)
 
     # a simple page that says hello
-    @app.route('/')
-    def hello():
-        return jsonify({'status': 'OK'})
+    @app.route('/', defaults={'path': 'index.html'})
+    @app.route("/<path:path>")
+    def static_file(path):
+        return send_from_directory('../www/build', path)
 
     return app
 

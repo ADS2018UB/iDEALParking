@@ -9,6 +9,8 @@ import { DistrictBanner } from '../../components/district-banner';
 import { GetQuoteOkResponse, GetQuote } from '../../api/api.interfaces';
 import { ParkingQuoteBanner } from '../../components/parking-quote-banner';
 
+declare var BASE_API_PATH: string;
+
 const position: [number, number] = [41.387385, 2.164665];
 
 export interface SelectedPoint {
@@ -110,7 +112,7 @@ export class Home extends Component<Props, State> {
   public onMapClick({ event, latLng, pixel }) {
     if (latLng) {
       fetch(
-        `http://localhost:5000/api/v1/quote?longitude=${encodeURIComponent(
+        `${BASE_API_PATH || ''}/api/v1/quote?longitude=${encodeURIComponent(
           latLng[1].toString(),
         )}&latitude=${encodeURIComponent(latLng[0].toString())}`,
       )
