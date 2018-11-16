@@ -26,6 +26,7 @@ def get_quote():
     if form.validate():
         district = BarcelonaDistrict.get_by_coordinates(
             form.latitude.data, form.longitude.data)
+        print(district.district_number)
         if district:
             resp = jsonify({
                 'result': {

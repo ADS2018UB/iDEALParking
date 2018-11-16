@@ -22,4 +22,4 @@ def compute_parking_price(district_number):
     if district_number < 1 or district_number > 11:
         raise ValueError('Invalid district number ' + district_number)
 
-    return _mean_price_district[district_number]
+    return _mean_price_district[district_number - 1]
