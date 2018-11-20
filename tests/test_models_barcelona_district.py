@@ -2,7 +2,7 @@ import pymongo
 from nose.case import unittest
 from mongoengine import connect
 
-from ideal_parking.scripts.import_barcelona_shapes import import_geojson
+from ideal_parking.scripts.import_barcelona_shapes import import_districts
 from ideal_parking.models.barcelona_district import BarcelonaDistrict
 
 
@@ -13,7 +13,7 @@ class TestModelsBarcelonaDistrict(unittest.TestCase):
 
     def setUp(self):
         self.connection = connect('mongoenginetest', is_mock=True)
-        import_geojson('tests/data/ciutat_vella_geojson.json')
+        import_districts('tests/data/ciutat_vella_geojson.json')
 
     def tearDown(self):
         self.connection.drop_database('mongoenginetest')

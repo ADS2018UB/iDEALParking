@@ -32,7 +32,7 @@ using the next Flask script for Linux,
 
 ```bash
 export FLASK_APP=ideal_parking
-flask loadshapes data/districtes_geo.json
+flask loadshapes data/barris_geo.json data/districtes_geo.json
 ```
 
 Optionally, you can also load a set of initial data from Idealista. Use the provided Flask CLI script:
