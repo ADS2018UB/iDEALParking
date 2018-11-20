@@ -55,7 +55,11 @@ def loaddata(csv_path):
 
 
 @app.cli.command()
-@click.argument('shape_path')
-def loadshapes(shape_path):
-    from ideal_parking.scripts.import_barcelona_shapes import import_geojson
-    import_geojson(shape_path)
+@click.argument('neighborhoods_path')
+@click.argument('districts_path')
+def loadshapes(districts_path, neighborhoods_path):
+    from ideal_parking.scripts.import_barcelona_shapes import (
+        import_districts, import_neighborhoods
+    )
+    import_districts(districts_path)
+    import_neighborhoods(neighborhoods_path)
