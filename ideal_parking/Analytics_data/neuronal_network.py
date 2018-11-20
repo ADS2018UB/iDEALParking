@@ -24,15 +24,16 @@ X = np.load("X.npy")
 y = np.load("y.npy")
 
 scaler = StandardScaler()
-X_train,X_test,y_train,y_test = model_selection.train_test_split(X,y,train_size=0.8,random_state=42)
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+#X_train,X_test,y_train,y_test = model_selection.train_test_split(X,y,train_size=0.8,random_state=42)
+X_train_scaled = scaler.fit_transform(X)
+y_train = y
+#X_test_scaled = scaler.transform(X_test)
 
 
 NN_model = Sequential()
 
 # The Input Layer :
-NN_model.add(Dense(128, kernel_initializer='normal',input_dim = X_train.shape[1], activation='relu'))
+NN_model.add(Dense(128, kernel_initializer='normal',input_dim = X_train_scaled.shape[1], activation='relu'))
 
 # The Hidden Layers :
 NN_model.add(Dense(256, kernel_initializer='normal',activation='relu'))
@@ -53,7 +54,7 @@ callbacks_list = [checkpoint]
 NN_model.fit(X_train_scaled, y_train, epochs=200, batch_size=32, validation_split = 0.2, callbacks=callbacks_list)
 
 
-predictions = NN_model.predict(X_test_scaled)
+#predictions = NN_model.predict(X_test_scaled)
 
 ## Correlation between features
 
