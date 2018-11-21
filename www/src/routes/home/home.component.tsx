@@ -8,6 +8,7 @@ import { PanelPortal } from '../../components/panel-portal';
 import { DistrictBanner } from '../../components/district-banner';
 import { GetQuoteOkResponse, GetQuote } from '../../api/api.interfaces';
 import { ParkingQuoteBanner } from '../../components/parking-quote-banner';
+import { ParkingForm } from '../../components/parking-form';
 
 const position: [number, number] = [41.387385, 2.164665];
 
@@ -86,7 +87,7 @@ export class Home extends Component<Props, State> {
               <header style="font-weight: 600;">
                 Set your preference to get a better quote
               </header>
-              <div>FORM PLACEHOLDER</div>
+              <ParkingForm />
             </section>
           </PanelPortal>
         )}
