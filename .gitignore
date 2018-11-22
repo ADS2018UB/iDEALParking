@@ -13,3 +13,4 @@ venv
 .tox
 .vscode
 ideal_parking.egg-info
+.mongo_test_data
