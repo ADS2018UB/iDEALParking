@@ -102,7 +102,7 @@ def _get_model():
     if _MODEL is None:
         path = os.path.join(
             os.path.abspath(os.path.dirname(__file__)),
-            'Weights-092--402.14526.hdf5'
+            'Weights-037--406.62213.hdf5'
         )
         _MODEL = load_model(path)
     return _MODEL
