@@ -8,6 +8,7 @@ import { PanelPortal } from '../../components/panel-portal';
 import { DistrictBanner } from '../../components/district-banner';
 import { GetQuoteOkResponse, GetQuote } from '../../api/api.interfaces';
 import { ParkingQuoteBanner } from '../../components/parking-quote-banner';
+import { getQuote } from '../../api/api.service';
 
 declare var BASE_API_PATH: string;
 
@@ -111,24 +112,18 @@ export class Home extends Component<Props, State> {
 
   public onMapClick({ event, latLng, pixel }) {
     if (latLng) {
-      fetch(
-        `${BASE_API_PATH || ''}/api/v1/quote?longitude=${encodeURIComponent(
-          latLng[1].toString(),
-        )}&latitude=${encodeURIComponent(latLng[0].toString())}`,
-      )
-        .then(response => response.json())
-        .then((quote: GetQuote) => {
-          if (quote.errors) {
-            alert(quote.errors);
-          } else {
-            this.setState({
-              selectedPoint: {
-                position: latLng,
-                payload: quote as GetQuoteOkResponse,
-              },
-            });
-          }
-        });
+      getQuote(latLng).then((quote: GetQuote) => {
+        if (quote.errors) {
+          alert(quote.errors);
+        } else {
+          this.setState({
+            selectedPoint: {
+              position: latLng,
+              payload: quote as GetQuoteOkResponse,
+            },
+          });
+        }
+      });
     }
 
     this.setState({ sidePanelOpen: true });
