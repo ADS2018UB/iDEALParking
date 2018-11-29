@@ -3,6 +3,8 @@ import click
 from flask import Flask, send_from_directory
 from flask_mongoengine import MongoEngine
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager
+
 
 app = None
 
@@ -16,8 +18,11 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         MONGODB_SETTINGS={
             'host': os.getenv('MONGO_URL', 'mongodb://localhost/ideal_parking_dev')
-        }
+        },
+        JWT_SECRET_KEY=os.getenv('JWT_SECRET_KEY', ''),
     )
+
+    JWTManager(app)
     MongoEngine(app)
     CORS(app)
 
@@ -31,8 +36,9 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    from ideal_parking.api import quote
+    from ideal_parking.api import quote, user
     app.register_blueprint(quote.bp)
+    app.register_blueprint(user.bp)
 
     # a simple page that says hello
     @app.route('/', defaults={'path': 'index.html'})

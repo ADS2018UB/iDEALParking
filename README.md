@@ -77,6 +77,15 @@ Use Flask CLI to load the app:
 FLASK_APP=ideal_parking:app flask run
 ```
 
+If you want to create and authenticate users, provide a valid
+salt using the environment variable PASSWORD_SALT. You can
+generate one using the `bcrypt` package:
+
+```python
+import bcrypt
+bcrypt.gensalt(12)
+```
+
 ## Front-end
 
 The front-end is a Preact PWA. See the [front-end readme](./www/README.md) for more details.

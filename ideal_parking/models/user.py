@@ -7,8 +7,6 @@ from mongoengine import (
     EmbeddedDocumentField, EmbeddedDocument, DynamicField,
 )
 
-PASSWORD_SALT = os.environ.get('PASSWORD_SALT')
-
 
 class ParkingPreference(EmbeddedDocument):
     """
@@ -42,8 +40,21 @@ class User(Document):
 
     @password.setter
     def password(self, new_pass):
-        self._password = bcrypt.hashpw(new_pass.encode(
-            'utf-8'), PASSWORD_SALT.encode('utf-8'))
+        if new_pass:
+            PASSWORD_SALT = os.environ.get('PASSWORD_SALT')
+            self._password = bcrypt.hashpw(new_pass.encode(
+                'utf-8'), PASSWORD_SALT.encode('utf-8'))
+
+    @staticmethod
+    def create(name, email, password, parking_preference=None):
+        user = User(
+            name=name,
+            email=email,
+            parking_preference=parking_preference
+        )
+        user.password = password
+        user.save()
+        return user
 
     def authenticate(self, password):
         self.authenticated = False

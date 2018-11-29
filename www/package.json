@@ -19,7 +19,7 @@
     "build/*"
   ],
   "devDependencies": {
-    "@types/jest": "^23.3.8",
+    "@types/jest": "^23.3.10",
     "eslint": "^4.9.0",
     "eslint-config-synacor": "^2.0.2",
     "identity-obj-proxy": "^3.0.0",
@@ -29,11 +29,11 @@
     "preact-cli-plugin-fast-async": "^1.0.1",
     "preact-cli-plugin-typescript": "^0.2.2",
     "preact-render-spy": "^1.2.1",
-    "ts-jest": "^23.10.4"
+    "ts-jest": "^23.10.5"
   },
   "dependencies": {
     "obj-str": "^1.0.1",
-    "pigeon-maps": "^0.11.5",
+    "pigeon-maps": "^0.11.8",
     "pigeon-marker": "^0.3.4",
     "preact": "^8.3.1",
     "preact-compat": "^3.17.0",
