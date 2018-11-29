@@ -9,6 +9,22 @@ export const defaultFeatures: ParkingFeatures = {
   newDev: false,
 };
 
+export function authedFetch(url, init?: RequestInit) {
+  const headers = new Headers((init && init.headers) || []);
+  const accessToken = localStorage.getItem('access_token');
+  console.log(accessToken);
+  if (accessToken) {
+    headers.append('Authorization', `Bearer ${accessToken}`);
+  }
+
+  const options = {
+    ...(init || {}),
+    headers,
+  };
+
+  return fetch(url, options);
+}
+
 /**
  * Fetch the quote
  */
@@ -29,7 +45,7 @@ export function getQuote(
     )
     .join('&');
 
-  return fetch(`${BASE_API_PATH || ''}/api/v1/quote?${queryString}`).then(
+  return authedFetch(`${BASE_API_PATH || ''}/api/v1/quote?${queryString}`).then(
     response => response.json(),
   );
 }

@@ -17,7 +17,6 @@ class TestModelsUser(unittest.TestCase):
         from ideal_parking.models.user import User
         self.model = User
         self._users = []
-        
 
     def tearDown(self):
         for user in self._users:
@@ -49,10 +48,6 @@ class TestModelsUser(unittest.TestCase):
             self._user_factory(email='EMAIL_1')
 
     def _user_factory(self, name='TEST_USER_NAME', email='TEST_USER_EMAIL', password='USER_PASSWORD'):
-        user = self.model(
-            name=name, email=email,
-        )
-        user.password = password
-        user.save()
+        user = self.model.create(name, email, password)
         self._users.append(user)
         return user
