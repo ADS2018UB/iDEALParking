@@ -31,3 +31,10 @@ export interface GetQuoteInput {
   longitude: number;
   latitude: number;
 }
+
+export interface ParkingFeatures {
+  parkingType: number;
+  hasLift: boolean;
+  hasPlan: boolean;
+  newDev: boolean;
+}
