@@ -2,6 +2,8 @@
 from flask import Blueprint, request, jsonify
 from wtforms import Form, FloatField, BooleanField, IntegerField
 from wtforms.validators import InputRequired, NumberRange
+from flask_jwt_extended import get_jwt_identity, jwt_optional
+
 
 from ideal_parking.models.barcelona_neighborhood import BarcelonaNeighborhood
 from ideal_parking.analytics.parking_price_model import compute_parking_price
@@ -23,6 +25,7 @@ class QuoteInput(Form):
 
 
 @bp.route('/', methods=('GET', ))
+@jwt_optional
 def get_quote():
     """
     Get a quote from coordinates
@@ -33,14 +36,15 @@ def get_quote():
         neig = BarcelonaNeighborhood.get_by_coordinates(
             form.latitude.data, form.longitude.data)
         if neig:
+            user = get_jwt_identity()
             resp = jsonify({
                 'result': {
                     'price': compute_parking_price(
                         form.latitude.data, form.longitude.data,
-                        parking_type=form.parkingType.data,
-                        has_lift=form.hasLift.data,
-                        has_plan=form.hasPlan.data,
-                        new_dev=form.newDev.data,
+                        parking_type=form.parkingType.data if user else 3,
+                        has_lift=form.hasLift.data if user else False,
+                        has_plan=form.hasPlan.data if user else False,
+                        new_dev=form.newDev.data if user else False,
                     ),
                     'district': {
                         'name': neig.district_name,
