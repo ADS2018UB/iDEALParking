@@ -16,6 +16,7 @@ source venv/bin/activate
 ```
 
 For Windows:
+
 ```bash
 virtualenv -p python3 venv
 source venv/Scripts/activate
@@ -51,8 +52,8 @@ flask loadshapes data/districtes_geo.json
 
 and load the initial data if required
 
-
 ### Testing
+
 The back-end can be tested using `tox`:
 
 ```bash
@@ -61,7 +62,6 @@ tox
 
 Tox will create the testing environment. Remember to recreate the
 testing environment if requirements file chaged running the tests with the recreate option:
-
 
 ```bash
 tox -r
@@ -77,20 +77,39 @@ Use Flask CLI to load the app:
 FLASK_APP=ideal_parking:app flask run
 ```
 
+If you want to create and authenticate users, provide a valid
+salt using the environment variable PASSWORD_SALT. You can
+generate one using the `bcrypt` package:
+
+```python
+import bcrypt
+bcrypt.gensalt(12)
+```
+
 ## Front-end
 
 The front-end is a Preact PWA. See the [front-end readme](./www/README.md) for more details.
 
-### Testing
+## Docker
 
-Test in watch mode using
+This app includes a `Dockerfile` to build the main web app and a `docker-compose.yml` to set up a testing environment.
+
+The `Dockerfile` will copy and serve the build artifacts of the
+front-end. Be sure to have a compiled working copy before pushing to docker repositories or servers.
+
+To set up the Docker Compose dev, just run
 
 ```bash
-npm run test
+docker-compose up
 ```
 
-Test in CI mode, single pass, using
+The first time it will generate a local image of the application and may take some time. It will also launch a persistent local instance of MongoDB. Remember to load
+the fixtures using the installation script.
+
+If you want to rebuild the images, for example after a back-end change, run
 
 ```bash
-npm run test:ci
+docker-compose build
 ```
+
+otherwise, the changes won't be pushed to the Docker dev env.

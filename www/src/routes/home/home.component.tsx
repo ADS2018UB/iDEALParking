@@ -9,6 +9,9 @@ import { DistrictBanner } from '../../components/district-banner';
 import { GetQuoteOkResponse, GetQuote } from '../../api/api.interfaces';
 import { ParkingQuoteBanner } from '../../components/parking-quote-banner';
 import { ParkingForm } from '../../components/parking-form';
+import { getQuote } from '../../api/api.service';
+
+declare var BASE_API_PATH: string;
 
 const position: [number, number] = [41.387385, 2.164665];
 
@@ -110,24 +113,18 @@ export class Home extends Component<Props, State> {
 
   public onMapClick({ event, latLng, pixel }) {
     if (latLng) {
-      fetch(
-        `http://localhost:5000/api/v1/quote?longitude=${encodeURIComponent(
-          latLng[1].toString(),
-        )}&latitude=${encodeURIComponent(latLng[0].toString())}`,
-      )
-        .then(response => response.json())
-        .then((quote: GetQuote) => {
-          if (quote.errors) {
-            alert(quote.errors);
-          } else {
-            this.setState({
-              selectedPoint: {
-                position: latLng,
-                payload: quote as GetQuoteOkResponse,
-              },
-            });
-          }
-        });
+      getQuote(latLng).then((quote: GetQuote) => {
+        if (quote.errors) {
+          alert(quote.errors);
+        } else {
+          this.setState({
+            selectedPoint: {
+              position: latLng,
+              payload: quote as GetQuoteOkResponse,
+            },
+          });
+        }
+      });
     }
 
     this.setState({ sidePanelOpen: true });

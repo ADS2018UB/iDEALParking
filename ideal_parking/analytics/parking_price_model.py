@@ -2,8 +2,6 @@
 import math
 import os
 import numpy as np
-from sklearn.preprocessing import StandardScaler
-from keras.models import load_model
 
 from ideal_parking.models.barcelona_neighborhood import BarcelonaNeighborhood
 
@@ -100,9 +98,10 @@ def _get_neighborhood(lat, lng):
 def _get_model():
     global _MODEL
     if _MODEL is None:
+        from keras.models import load_model
         path = os.path.join(
             os.path.abspath(os.path.dirname(__file__)),
-            'Weights-092--402.14526.hdf5'
+            'Weights-037--406.62213.hdf5'
         )
         _MODEL = load_model(path)
     return _MODEL
@@ -111,6 +110,7 @@ def _get_model():
 def _get_scaler():
     global _SCALER
     if _SCALER is None:
+        from sklearn.preprocessing import StandardScaler
         path = os.path.join(
             os.path.abspath(os.path.dirname(__file__)),
             './X.npy'

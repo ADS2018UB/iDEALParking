@@ -6,8 +6,9 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
+# serve with hot reload at localhost:8080 and api in 
+
+BASE_API_PATH=http://localhost:5000 npm run dev
 
 # build for production with minification
 npm run build

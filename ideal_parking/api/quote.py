@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from flask import Blueprint, request, jsonify
-from wtforms import Form, FloatField
-from wtforms.validators import InputRequired
+from wtforms import Form, FloatField, BooleanField, IntegerField
+from wtforms.validators import InputRequired, NumberRange
+from flask_jwt_extended import get_jwt_identity, jwt_optional
+
 
 from ideal_parking.models.barcelona_neighborhood import BarcelonaNeighborhood
 from ideal_parking.analytics.parking_price_model import compute_parking_price
@@ -16,21 +18,34 @@ class QuoteInput(Form):
     longitude = FloatField(validators=[InputRequired()])
     latitude = FloatField(validators=[InputRequired()])
 
+    parkingType = IntegerField(default=3, validators=[NumberRange(min=1, max=5)])
+    hasLift = BooleanField(default=False)
+    hasPlan = BooleanField(default=False)
+    newDev = BooleanField(default=False)
+
 
 @bp.route('/', methods=('GET', ))
+@jwt_optional
 def get_quote():
     """
     Get a quote from coordinates
     """
     form = QuoteInput(request.args)
+
     if form.validate():
         neig = BarcelonaNeighborhood.get_by_coordinates(
             form.latitude.data, form.longitude.data)
         if neig:
+            user = get_jwt_identity()
             resp = jsonify({
                 'result': {
                     'price': compute_parking_price(
-                        form.latitude.data, form.longitude.data),
+                        form.latitude.data, form.longitude.data,
+                        parking_type=form.parkingType.data if user else 3,
+                        has_lift=form.hasLift.data if user else False,
+                        has_plan=form.hasPlan.data if user else False,
+                        new_dev=form.newDev.data if user else False,
+                    ),
                     'district': {
                         'name': neig.district_name,
                         'district_number': neig.district_number,

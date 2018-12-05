@@ -21,8 +21,10 @@ y = np.load(
 scaler = StandardScaler()
 X_train, X_val, y_train, y_val = model_selection.train_test_split(
     X, y, train_size=0.8, random_state=42)
+>>>>>>> a0e7209cf43543508029ccd32bfd8f023e6a3043
 X_train_scaled = scaler.fit_transform(X_train)
 X_val_scaled = scaler.transform(X_val)
+
 
 
 def gaussian_covariance(a, b, l, s):
@@ -75,3 +77,4 @@ print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_val, f)))
 # plt.show()
 
 # plt.plot(f,'r.')
+
