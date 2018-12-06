@@ -3,6 +3,7 @@ import { Router } from 'preact-router';
 
 // Code-splitting is automated for routes
 import { Home } from '../routes/home';
+import { UserLinkButton } from './user-link-button';
 
 export default class App extends Component {
   private currentUrl: string;

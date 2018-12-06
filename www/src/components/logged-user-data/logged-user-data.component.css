@@ -1,0 +1,8 @@
+.logged-user-data {
+  padding: 1em;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 2px;
+  color: white;
+  font-weight: 600;
+  margin-top: 1em;
+}
