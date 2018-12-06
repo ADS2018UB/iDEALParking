@@ -62,18 +62,11 @@ export class ParkingForm extends Component<{}, State> {
                 <b>Size</b>
                 <br />
                 <br />
-                <select value={this.state.value}>
+                <select value={this.state.value} className={[custom-select, d-block, w-100].join(' ')}>
                     <option value="one">1</option>
                     <option value="two">2</option>
                     <option value="three">3</option>
                 </select>
-                <input
-                  id="insize"
-                  className={style.insize}
-                  type="number"
-                  placeholder="Enter Size"
-                  name="size"
-                />
               </label>
               <br />
               <br />
@@ -81,21 +74,21 @@ export class ParkingForm extends Component<{}, State> {
               <fieldset class="inputGroup">
                 <legend>Choose some extras</legend>
                 <br />
-                <label className={style.container}>
+                <label className={[custom-control, custom-radio].join(' ')}>
                   {' '}
                   Lift
                   <input type="checkbox" />
                   <span className={style.checkmark} />
                 </label>
                 <br />
-                <label className={style.container}>
+                <label className={[custom-control, custom-radio].join(' ')}>
                   {' '}
                   Deposit needed
                   <input type="checkbox" />
                   <span className={style.checkmark} />
                 </label>
                 <br />
-                <label className={style.container}>
+                <label className={[custom-control, custom-radio].join(' ')}>
                   {' '}
                   Renovated
                   <input type="checkbox" />
@@ -106,12 +99,12 @@ export class ParkingForm extends Component<{}, State> {
                   <button
                     type="reset"
                     onClick={this.resetForm}
-                    class="cancelbtn btn"
+                    class="cancelbtn btn btn-secondary"
                   >
                     {' '}
                     Cancel{' '}
                   </button>
-                  <button type="submit" class="signupbtn btn">
+                  <button type="submit" class="btn btn-primary">
                     {' '}
                     Search{' '}
                   </button>

@@ -73,11 +73,6 @@
     transform: rotate(45deg);
 }
 
-.btn{
-  border-radius: 12px;
-  background-color: lightblue;
-}
-
 .insize{
   border-radius: 10px;
 }
