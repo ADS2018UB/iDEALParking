@@ -12,7 +12,7 @@ export const defaultFeatures: ParkingFeatures = {
 export function authedFetch(url, init?: RequestInit) {
   const headers = new Headers((init && init.headers) || []);
   const accessToken = localStorage.getItem('access_token');
-  console.log(accessToken);
+
   if (accessToken) {
     headers.append('Authorization', `Bearer ${accessToken}`);
   }

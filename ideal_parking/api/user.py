@@ -66,7 +66,7 @@ def login():
     return resp
 
 
-@bp.route('/', methods=('POST', ))
+@bp.route('', methods=('POST', ))
 def user_create():
     """
     Create a user
