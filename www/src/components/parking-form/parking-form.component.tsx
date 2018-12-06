@@ -62,6 +62,11 @@ export class ParkingForm extends Component<{}, State> {
                 <b>Size</b>
                 <br />
                 <br />
+                <select value={this.state.value}>
+                    <option value="one">1</option>
+                    <option value="two">2</option>
+                    <option value="three">3</option>
+                </select>
                 <input
                   id="insize"
                   className={style.insize}
@@ -78,21 +83,14 @@ export class ParkingForm extends Component<{}, State> {
                 <br />
                 <label className={style.container}>
                   {' '}
-                  Automatic gate
+                  Lift
                   <input type="checkbox" />
                   <span className={style.checkmark} />
                 </label>
                 <br />
                 <label className={style.container}>
                   {' '}
-                  Internal illumination
-                  <input type="checkbox" />
-                  <span className={style.checkmark} />
-                </label>
-                <br />
-                <label className={style.container}>
-                  {' '}
-                  Fournished
+                  Deposit needed
                   <input type="checkbox" />
                   <span className={style.checkmark} />
                 </label>
