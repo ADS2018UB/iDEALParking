@@ -4,6 +4,7 @@ import style from './style.css';
 
 export interface State {
   isOpen: boolean;
+  value: string;
 }
 
 export class ParkingForm extends Component<{}, State> {
@@ -14,6 +15,7 @@ export class ParkingForm extends Component<{}, State> {
 
     this.state = {
       isOpen: false,
+      value: 'one',
     };
 
     this.toggleVisibility = this.toggleVisibility.bind(this);
@@ -62,10 +64,13 @@ export class ParkingForm extends Component<{}, State> {
                 <b>Size</b>
                 <br />
                 <br />
-                <select value={this.state.value} className={[custom-select, d-block, w-100].join(' ')}>
-                    <option value="one">1</option>
-                    <option value="two">2</option>
-                    <option value="three">3</option>
+                <select
+                  value={this.state.value}
+                  className={['custom-select', 'd-block', 'w-100'].join(' ')}
+                >
+                  <option value="one">1</option>
+                  <option value="two">2</option>
+                  <option value="three">3</option>
                 </select>
               </label>
               <br />
@@ -74,21 +79,21 @@ export class ParkingForm extends Component<{}, State> {
               <fieldset class="inputGroup">
                 <legend>Choose some extras</legend>
                 <br />
-                <label className={[custom-control, custom-radio].join(' ')}>
+                <label className={['custom-control', 'custom-radio'].join(' ')}>
                   {' '}
                   Lift
                   <input type="checkbox" />
                   <span className={style.checkmark} />
                 </label>
                 <br />
-                <label className={[custom-control, custom-radio].join(' ')}>
+                <label className={['custom-control', 'custom-radio'].join(' ')}>
                   {' '}
                   Deposit needed
                   <input type="checkbox" />
                   <span className={style.checkmark} />
                 </label>
                 <br />
-                <label className={[custom-control, custom-radio].join(' ')}>
+                <label className={['custom-control', 'custom-radio'].join(' ')}>
                   {' '}
                   Renovated
                   <input type="checkbox" />

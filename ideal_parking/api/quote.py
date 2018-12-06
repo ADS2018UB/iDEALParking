@@ -24,7 +24,7 @@ class QuoteInput(Form):
     newDev = BooleanField(default=False)
 
 
-@bp.route('/', methods=('GET', ))
+@bp.route('', methods=('GET', ))
 @jwt_optional
 def get_quote():
     """
