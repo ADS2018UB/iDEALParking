@@ -4,7 +4,7 @@
 import { h } from 'preact';
 import { shallow, RenderContext } from 'preact-render-spy';
 
-import { GetQuoteOkResponse } from '../../api/api.interfaces';
+import { GetQuoteOkResponse } from '../../services/api/api.interfaces';
 import { ParkingQuoteBanner } from './parking-quote-banner';
 
 describe('ParkingQuoteBanner', () => {

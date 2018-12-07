@@ -6,12 +6,14 @@ import Marker from 'pigeon-marker';
 import style from './style.css';
 import { PanelPortal } from '../../components/panel-portal';
 import { DistrictBanner } from '../../components/district-banner';
-import { GetQuoteOkResponse, GetQuote } from '../../api/api.interfaces';
+import {
+  GetQuoteOkResponse,
+  GetQuote,
+} from '../../services/api/api.interfaces';
 import { ParkingQuoteBanner } from '../../components/parking-quote-banner';
 import { ParkingForm } from '../../components/parking-form';
-import { getQuote } from '../../api/api.service';
-
-declare var BASE_API_PATH: string;
+import { getQuote } from '../../services/api/api.service';
+import { UserLinkButton } from '../../components/user-link-button';
 
 const position: [number, number] = [41.387385, 2.164665];
 
@@ -77,6 +79,7 @@ export class Home extends Component<Props, State> {
             <Marker anchor={this.state.selectedPoint.position} payload={0} />
           )}
         </Map>
+        <UserLinkButton />
         {this.state.sidePanelOpen && this.state.selectedPoint && (
           <PanelPortal>
             <button type="button" onClick={this.onPanelClose}>
@@ -111,7 +114,7 @@ export class Home extends Component<Props, State> {
     }
   }
 
-  public onMapClick({ event, latLng, pixel }) {
+  public onMapClick({ latLng }) {
     if (latLng) {
       getQuote(latLng).then((quote: GetQuote) => {
         if (quote.errors) {

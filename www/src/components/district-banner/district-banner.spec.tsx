@@ -4,7 +4,7 @@
 import { h } from 'preact';
 import { shallow, RenderContext } from 'preact-render-spy';
 
-import { District } from '../../api/api.interfaces';
+import { District } from '../../services/api/api.interfaces';
 import { DistrictBanner } from './district-banner';
 
 describe('DistrictBanner', () => {
