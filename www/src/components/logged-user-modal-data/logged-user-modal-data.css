@@ -1,0 +1,12 @@
+.logged-user-modal-data {
+  display: inline-block;
+}
+
+.logged-user-modal-data__button {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  border: 0 none;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 2em;
+}

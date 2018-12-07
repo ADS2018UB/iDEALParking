@@ -33,6 +33,7 @@
     "ts-jest": "^23.10.5"
   },
   "dependencies": {
+    "linkstate": "^1.1.1",
     "obj-str": "^1.0.1",
     "pigeon-maps": "^0.11.10",
     "pigeon-marker": "^0.3.4",

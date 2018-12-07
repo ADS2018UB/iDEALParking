@@ -5,7 +5,7 @@ from wtforms.validators import InputRequired, Email, Length
 from flask_jwt_extended import (
     create_access_token, get_jwt_identity, jwt_optional,
 )
-from mongoengine.errors import NotUniqueError
+from mongoengine.errors import NotUniqueError, DoesNotExist
 
 from ideal_parking.models.user import User
 
@@ -40,7 +40,10 @@ def login():
     form = LoginInput(request.form)
 
     if form.validate():
-        user = User.objects.get(email=form.email.data)
+        try:
+            user = User.objects.get(email=form.email.data)
+        except DoesNotExist:
+            user = None
 
         if user is None or not user.authenticate(form.password.data):
             resp = jsonify({
@@ -121,4 +124,11 @@ def whoami():
             'errors': None,
         }), 200
     else:
-        return jsonify(loggeed_in_as='anonymous user'), 200
+        return jsonify({
+            'result': {
+                'id': None,
+                'name': 'anonymous_user',
+                'email': None,
+            },
+            'errors': None,
+        }), 200

@@ -1,7 +1,7 @@
 import { Component, h } from 'preact';
 
 import style from './district-banner.css';
-import { District } from '../../api/api.interfaces';
+import { District } from '../../services/api/api.interfaces';
 
 export class DistrictBanner extends Component<District, {}> {
   public render() {
