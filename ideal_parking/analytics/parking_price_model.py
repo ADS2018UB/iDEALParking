@@ -101,7 +101,7 @@ def _get_model():
         from keras.models import load_model
         path = os.path.join(
             os.path.abspath(os.path.dirname(__file__)),
-            'Weights-037--406.62213.hdf5'
+            'Weights-best.hdf5'
         )
         _MODEL = load_model(path)
     return _MODEL
