@@ -1,5 +1,5 @@
 import { Component, h } from 'preact';
-import { GetQuoteOkResponse } from '../../api/api.interfaces';
+import { GetQuoteOkResponse } from '../../services/api/api.interfaces';
 
 import style from './parking-quote-banner.css';
 
