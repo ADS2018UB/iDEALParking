@@ -21,7 +21,8 @@ class OutOfServerAreaError(Exception):
 
 
 def compute_parking_price(
-        lat, lng, parking_type=3, has_lift=False, has_plan=False, new_dev=False):
+        lat, lng, parking_type=3, has_lift=False, has_plan=False, aut_door=False, 
+        alarm=False, sec_cam=False, sec_pers=False):
     """
     Function to call the prediction model
     """
@@ -35,8 +36,17 @@ def compute_parking_price(
     if not isinstance(has_plan, bool):
         raise ValueError('has_plan must be a boolean')
 
-    if not isinstance(new_dev, bool):
-        raise ValueError('new_dev must be a boolean')
+    if not isinstance(aut_door, bool):
+        raise ValueError('aut_door must be a boolean')
+        
+    if not isinstance(alarm, bool):
+        raise ValueError('alarm must be a boolean')
+        
+    if not isinstance(sec_cam, bool):
+        raise ValueError('sec_cam must be a boolean')
+        
+    if not isinstance(sec_pers, bool):
+        raise ValueError('sec_pers must be a boolean')
 
     # Computate the distance from the coordinates
     distance = _get_distance_from_center(lat, lng)
@@ -46,9 +56,9 @@ def compute_parking_price(
 
     # Create the X vector
     X_user = np.array([
-        parking_type, distance, nei.district_number,
-        int(has_lift), int(has_plan), nei.neighborhood_number, int(new_dev),
-    ])
+        parking_type, distance, int(has_lift), int(has_plan), 
+        nei.neighborhood_number, int(aut_door), int(alarm), int(sec_cam),
+        int(sec_pers)])
     X_user = X_user[np.newaxis, :]
 
     # Scale the data
@@ -101,7 +111,7 @@ def _get_model():
         from keras.models import load_model
         path = os.path.join(
             os.path.abspath(os.path.dirname(__file__)),
-            'Weights-037--406.62213.hdf5'
+            'Weights-best.hdf5'
         )
         _MODEL = load_model(path)
     return _MODEL
