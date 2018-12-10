@@ -2,6 +2,7 @@ import { Component, h } from 'preact';
 import { RoutableProps } from 'preact-router';
 import Map from 'pigeon-maps';
 import Marker from 'pigeon-marker';
+import { Subscription } from 'rxjs';
 
 import style from './style.css';
 import { PanelPortal } from '../../components/panel-portal';
@@ -14,6 +15,7 @@ import { ParkingQuoteBanner } from '../../components/parking-quote-banner';
 import { ParkingForm } from '../../components/parking-form';
 import { getQuote } from '../../services/api/api.service';
 import { UserLinkButton } from '../../components/user-link-button';
+import { authService } from '../../services/auth';
 
 const position: [number, number] = [41.387385, 2.164665];
 
@@ -30,10 +32,12 @@ export interface State {
   height: number;
   sidePanelOpen: boolean;
   selectedPoint: null | SelectedPoint;
+  isLogged: boolean;
 }
 
 export class Home extends Component<Props, State> {
   private _wrapper!: HTMLElement;
+  private _subs!: Subscription;
 
   constructor(props: Props) {
     super(props);
@@ -44,6 +48,7 @@ export class Home extends Component<Props, State> {
       height: 400,
       sidePanelOpen: false,
       selectedPoint: null,
+      isLogged: false,
     };
 
     this.bindContainer = this.bindContainer.bind(this);
@@ -89,12 +94,21 @@ export class Home extends Component<Props, State> {
               {...this.state.selectedPoint.payload.result.district}
             />
             <ParkingQuoteBanner {...this.state.selectedPoint.payload} />
-            <section style="padding: 0 1em;">
-              <header style="font-weight: 600;">
-                Set your preference to get a better quote
-              </header>
-              <ParkingForm />
-            </section>
+            {this.state.isLogged && (
+              <section style="padding: 0 1em;">
+                <header style="font-weight: 600;">
+                  Set your preference to get a better quote
+                </header>
+                <ParkingForm />
+              </section>
+            )}
+            {!this.state.isLogged && (
+              <section style="padding: 0 1em;">
+                <header style="font-weight: 600;">
+                  Sign up to add features and get a better quote!
+                </header>
+              </section>
+            )}
           </PanelPortal>
         )}
       </div>
@@ -106,11 +120,19 @@ export class Home extends Component<Props, State> {
       window.addEventListener('resize', this.onResize);
     }
     this.onResize();
+
+    this._subs = authService.userData$.subscribe(userData =>
+      this.setState({ isLogged: !!userData }),
+    );
   }
 
   public componentWillUnmount() {
     if (window) {
       window.removeEventListener('resize', this.onResize);
+    }
+
+    if (this._subs) {
+      this._subs.unsubscribe();
     }
   }
 

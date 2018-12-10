@@ -1,3 +1,5 @@
+import { BehaviorSubject } from 'rxjs';
+
 import { authedFetch } from '../authed-fetch';
 
 export interface UserData {
@@ -51,8 +53,9 @@ declare var BASE_API_PATH: string;
  * Service to abstract the Auth management
  */
 export class AuthService {
+  public userData$ = new BehaviorSubject<UserData | null>(null);
+
   private _tokenKey = 'access_token';
-  private _userData!: UserData;
 
   public set token(token: string | null) {
     if (token) {
@@ -64,6 +67,14 @@ export class AuthService {
 
   public get token() {
     return localStorage.getItem(this._tokenKey) || null;
+  }
+
+  constructor() {
+    this.getUserData().then(data => {
+      if (data.id) {
+        this.userData$.next(data);
+      }
+    });
   }
 
   public verifyToken() {
@@ -81,13 +92,17 @@ export class AuthService {
     } catch {
       //
     }
+
+    if (!this.userData$.getValue()) {
+      this.userData$.next(null);
+    }
     return null;
   }
 
   public async getUserData(): Promise<UserData | AnonymousUser> {
     if (this.verifyToken()) {
-      if (this._userData) {
-        return Promise.resolve(this._userData);
+      if (this.userData$.getValue()) {
+        return Promise.resolve(this.userData$.getValue());
       }
 
       const response = await authedFetch(
@@ -98,8 +113,9 @@ export class AuthService {
         console.error(data.errors);
         return this.anonymousUserFactory();
       }
-      this._userData = data.result;
-      return this._userData;
+
+      this.userData$.next(data.result);
+      return data.result;
     }
 
     return Promise.resolve({ id: null, email: null, name: 'anonymous_user' });
@@ -129,7 +145,7 @@ export class AuthService {
 
   public logOut() {
     this.token = null;
-    this._userData = null;
+    this.userData$.next(null);
   }
 
   private anonymousUserFactory() {
