@@ -7,7 +7,10 @@ export const defaultFeatures: ParkingFeatures = {
   parkingType: 3,
   hasLift: false,
   hasPlan: false,
-  newDev: false,
+  autDoor: false,
+  alarm: false,
+  secCam: false,
+  secPers: false,
 };
 
 /**

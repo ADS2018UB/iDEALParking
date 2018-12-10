@@ -21,7 +21,10 @@ class QuoteInput(Form):
     parkingType = IntegerField(default=3, validators=[NumberRange(min=1, max=5)])
     hasLift = BooleanField(default=False)
     hasPlan = BooleanField(default=False)
-    newDev = BooleanField(default=False)
+    autDoor = BooleanField(default=False)
+    alarm = BooleanField(default=False)
+    secCam = BooleanField(default=False)
+    secPers = BooleanField(default=False)
 
 
 @bp.route('', methods=('GET', ))
@@ -44,7 +47,10 @@ def get_quote():
                         parking_type=form.parkingType.data if user else 3,
                         has_lift=form.hasLift.data if user else False,
                         has_plan=form.hasPlan.data if user else False,
-                        new_dev=form.newDev.data if user else False,
+                        aut_door=form.autDoor.data if user else False,
+                        alarm=form.alarm.data if user else False,
+                        sec_cam=form.secCam.data if user else False,
+                        sec_pers=form.secPers.data if user else False,
                     ),
                     'district': {
                         'name': neig.district_name,

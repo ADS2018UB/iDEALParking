@@ -36,5 +36,8 @@ export interface ParkingFeatures {
   parkingType: number;
   hasLift: boolean;
   hasPlan: boolean;
-  newDev: boolean;
+  autDoor: boolean;
+  alarm: boolean;
+  secCam: boolean;
+  secPers: boolean;
 }
