@@ -21,7 +21,7 @@ class OutOfServerAreaError(Exception):
 
 
 def compute_parking_price(
-        lat, lng, parking_type=3, has_lift=False, has_plan=False, aut_door=False, 
+        lat, lng, parking_type=3, has_lift=False, has_plan=False, aut_door=False,
         alarm=False, sec_cam=False, sec_pers=False):
     """
     Function to call the prediction model
@@ -38,13 +38,13 @@ def compute_parking_price(
 
     if not isinstance(aut_door, bool):
         raise ValueError('aut_door must be a boolean')
-        
+
     if not isinstance(alarm, bool):
         raise ValueError('alarm must be a boolean')
-        
+
     if not isinstance(sec_cam, bool):
         raise ValueError('sec_cam must be a boolean')
-        
+
     if not isinstance(sec_pers, bool):
         raise ValueError('sec_pers must be a boolean')
 
@@ -56,7 +56,7 @@ def compute_parking_price(
 
     # Create the X vector
     X_user = np.array([
-        parking_type, distance, int(has_lift), int(has_plan), 
+        parking_type, distance, int(has_lift), int(has_plan),
         nei.neighborhood_number, int(aut_door), int(alarm), int(sec_cam),
         int(sec_pers)])
     X_user = X_user[np.newaxis, :]
