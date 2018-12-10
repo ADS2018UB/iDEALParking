@@ -4,6 +4,7 @@ import style from './user-link-button.component.css';
 import { authService, UserData } from '../../services/auth';
 import { LogInForm, LogInData } from '../log-in-form';
 import { LoggedUserModalData } from '../logged-user-modal-data/logged-user-modal-data.component';
+import { Subscription } from 'rxjs';
 
 export interface State {
   userData: UserData | null;
@@ -15,6 +16,8 @@ export interface State {
  * User Link button
  */
 export class UserLinkButton extends Component<{}, State> {
+  private _subs!: Subscription;
+
   constructor(props: {}) {
     super(props);
 
@@ -31,7 +34,15 @@ export class UserLinkButton extends Component<{}, State> {
   }
 
   public componentWillMount() {
-    this._checkData();
+    this._subs = authService.userData$.subscribe({
+      next: userData => this.setState({ userData }),
+    });
+  }
+
+  public componentWillUnmount() {
+    if (this._subs) {
+      this._subs.unsubscribe();
+    }
   }
 
   public openLogInForm(e: Event) {
@@ -55,9 +66,9 @@ export class UserLinkButton extends Component<{}, State> {
         if (result.errors) {
           this.setState({ loginErrors: result.errors });
         } else {
-          this._checkData();
           this.setState({ loginErrors: null, openLoginForm: false });
         }
+        return authService.getUserData();
       });
   }
 
@@ -90,14 +101,5 @@ export class UserLinkButton extends Component<{}, State> {
         )}
       </div>
     );
-  }
-
-  private _checkData() {
-    authService.getUserData().then(result => {
-      console.log(result);
-      if (result && result.id) {
-        this.setState({ userData: result });
-      }
-    });
   }
 }
