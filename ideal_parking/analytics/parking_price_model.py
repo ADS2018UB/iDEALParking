@@ -127,6 +127,7 @@ def _get_scaler():
         )
         with open(path, 'rb') as file:
             X = np.load(file)
+			X = np.delete(X, [3,6], 1)
             _SCALER = StandardScaler()
             _SCALER.fit_transform(X)
     return _SCALER
