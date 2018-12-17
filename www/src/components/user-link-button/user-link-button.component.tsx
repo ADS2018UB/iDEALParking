@@ -5,6 +5,7 @@ import { authService, UserData } from '../../services/auth';
 import { LogInForm, LogInData } from '../log-in-form';
 import { LoggedUserModalData } from '../logged-user-modal-data/logged-user-modal-data.component';
 import { Subscription } from 'rxjs';
+import { CreateUserParams } from '../../services/auth/auth.service';
 
 export interface State {
   userData: UserData | null;
@@ -31,6 +32,7 @@ export class UserLinkButton extends Component<{}, State> {
     this.onLogIn = this.onLogIn.bind(this);
     this.onLogInCancel = this.onLogInCancel.bind(this);
     this.onLogOut = this.onLogOut.bind(this);
+    this.onSingUp = this.onSingUp.bind(this);
   }
 
   public componentWillMount() {
@@ -72,6 +74,17 @@ export class UserLinkButton extends Component<{}, State> {
       });
   }
 
+  public onSingUp(params: CreateUserParams) {
+    authService.createUser(params).then(result => {
+      if (result.errors) {
+        this.setState({ loginErrors: result.errors });
+      } else {
+        this.setState({ loginErrors: null, openLoginForm: false });
+      }
+      return authService.getUserData();
+    });
+  }
+
   public render() {
     return (
       <div className={style['user-link-button']}>
@@ -94,7 +107,8 @@ export class UserLinkButton extends Component<{}, State> {
 
         {this.state.openLoginForm && (
           <LogInForm
-            onSubmit={this.onLogIn}
+            onLogin={this.onLogIn}
+            onSignUp={this.onSingUp}
             onCancel={this.onLogInCancel}
             errors={this.state.loginErrors}
           />

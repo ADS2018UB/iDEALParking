@@ -47,6 +47,12 @@ export type AuthenticationResponse =
   | AuthenticationError
   | AuthenticationSuccess;
 
+export interface CreateUserParams {
+  email: string;
+  name: string;
+  password: string;
+}
+
 declare var BASE_API_PATH: string;
 
 /**
@@ -146,6 +152,26 @@ export class AuthService {
   public logOut() {
     this.token = null;
     this.userData$.next(null);
+  }
+
+  public async createUser({ email, name, password }: CreateUserParams) {
+    const body = new FormData();
+    body.append('email', email);
+    body.append('name', name);
+    body.append('password', password);
+
+    const response = await authedFetch(`${BASE_API_PATH || ''}/api/v1/user`, {
+      body,
+      method: 'POST',
+    });
+
+    const data: AuthenticationResponse = await response.json();
+    if (data.errors) {
+      this.token = null;
+    } else {
+      this.token = data.results.access_token;
+    }
+    return data;
   }
 
   private anonymousUserFactory() {

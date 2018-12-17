@@ -18,13 +18,17 @@
   z-index: 2;
 }
 
-.form-signin input[type='email'] {
+.form-signin__control--top {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.form-signin input[type='password'] {
+.form-signin__control--middle {
+  border-radius: 0;
+}
+
+.form-signin__control--bottom {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -41,4 +45,16 @@
   right: 0;
   top: 0;
   z-index: 2000;
+}
+
+.form-signin__controls-wrapper {
+  flex: 1 0 100%;
+  padding: 0 5px;
+  transform: translateX(0%);
+  transition: 100ms ease-in;
+  margin-bottom: 0.5em;
+}
+
+.form-signin__controls-wrapper--active {
+  transform: translateX(-100%);
 }

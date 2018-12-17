@@ -1,0 +1,19 @@
+.sign-log-selector {
+  display: inline-block;
+  border: 1px solid #acacac;
+  border-radius: 0.25rem;
+}
+
+.sign-log-selector__button {
+  border: 0 none;
+  background: none;
+  padding: 0.5em 1em;
+}
+
+.sign-log-selector__button:not(:last-child) {
+  border-right: 1px solid #acacac;
+}
+
+.sign-log-selector__button--active {
+  background-color: #ececec;
+}
