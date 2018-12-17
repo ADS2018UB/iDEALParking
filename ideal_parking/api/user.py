@@ -84,10 +84,12 @@ def user_create():
                 password=form.password.data,
             )
 
+            access_token = create_access_token(identity=str(user.id))
             return jsonify({
                 'result': {
                     'name': user.name,
                     'email': user.email,
+                    'access_token': access_token,
                 }
             })
 
