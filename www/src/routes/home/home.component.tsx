@@ -12,7 +12,7 @@ import {
   GetQuote,
 } from '../../services/api/api.interfaces';
 import { ParkingQuoteBanner } from '../../components/parking-quote-banner';
-import { ParkingForm } from '../../components/parking-form';
+import { ParkingForm, FormsData } from '../../components/parking-form';
 import { getQuote } from '../../services/api/api.service';
 import { UserLinkButton } from '../../components/user-link-button';
 import { authService } from '../../services/auth';
@@ -86,20 +86,19 @@ export class Home extends Component<Props, State> {
         </Map>
         <UserLinkButton />
         {this.state.sidePanelOpen && this.state.selectedPoint && (
-          <PanelPortal>
-            <button type="button" onClick={this.onPanelClose}>
-              close
-            </button>
+          <PanelPortal >
+            <button type="button" onClick={this.onPanelClose} class="close"> &times; </button>
+
             <DistrictBanner
-              {...this.state.selectedPoint.payload.result.district}
-            />
+                {...this.state.selectedPoint.payload.result.district}
+             />
             <ParkingQuoteBanner {...this.state.selectedPoint.payload} />
             {this.state.isLogged && (
               <section style="padding: 0 1em;">
                 <header style="font-weight: 600;">
                   Set your preference to get a better quote
                 </header>
-                <ParkingForm />
+                <ParkingForm onSubmit={this.onFeatureChange} />
               </section>
             )}
             {!this.state.isLogged && (
@@ -126,7 +125,7 @@ export class Home extends Component<Props, State> {
     );
   }
 
-  public componentWillUnmount() {
+public componentWillUnmount() {
     if (window) {
       window.removeEventListener('resize', this.onResize);
     }
@@ -134,9 +133,9 @@ export class Home extends Component<Props, State> {
     if (this._subs) {
       this._subs.unsubscribe();
     }
-  }
+}
 
-  public onMapClick({ latLng }) {
+public onMapClick({ latLng }) {
     if (latLng) {
       getQuote(latLng).then((quote: GetQuote) => {
         if (quote.errors) {
@@ -153,9 +152,14 @@ export class Home extends Component<Props, State> {
     }
 
     this.setState({ sidePanelOpen: true });
-  }
+    }
 
-  public onPanelClose() {
-    this.setState({ sidePanelOpen: false });
-  }
+    public onPanelClose() {
+       this.setState({ sidePanelOpen: false });
+    }
+
+    public onFeatureChange(value: FormsData){
+      console.log(value);
+    }
+
 }

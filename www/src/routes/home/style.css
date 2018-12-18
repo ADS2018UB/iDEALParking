@@ -2,3 +2,16 @@
   min-height: 25em;
   flex: 1 1 auto;
 }
+
+.close:hover{
+   color: white;
+}
+
+.close{
+    size: 3px;
+    padding-right: 5px;
+}
+
+
+
+
