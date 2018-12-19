@@ -122,7 +122,7 @@ export class LogInForm extends Component<Props, State> {
       <Portal into={'body'}>
         <div className={style['form-signin__wrapper']}>
           <form className={style['form-signin']} onSubmit={this.onSubmit}>
-            <h1 style="text-align: center;">iDeal Parking</h1>
+            <h1 style="text-align: center;">iDEAL Parking</h1>
             <div style="text-align: center; margin-bottom: 1em;">
               <SingOrLoginSelector
                 value={this.state.selectedOption}
