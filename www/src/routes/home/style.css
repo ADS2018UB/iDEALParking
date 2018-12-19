@@ -23,13 +23,13 @@
 
 .panel-portal__close-btn {
   background-color: lightcoral;
-  border-radius: 50%;
   border: 0 none;
   color: white;
   cursor: pointer;
   font-weight: 600;
   position: fixed;
-  right: -1em;
+  right: 0;
   top: 0;
   z-index: 100;
+  padding: 0.5em 1em;
 }
