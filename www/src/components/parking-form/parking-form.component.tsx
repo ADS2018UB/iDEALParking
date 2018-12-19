@@ -3,26 +3,38 @@ import linkstate from 'linkstate';
 
 import style from './style.css';
 
-export interface State {
-  isOpen: boolean;
-}
-
 export interface FormsData {
   size: number;
-  lift: boolean;
-  deposit: boolean;
-  renovated: boolean;
-  autdoor: boolean;
-  alarm: boolean;
-  cam: boolean;
-  sec_pers: boolean;
+  hasLift: boolean;
+  hasDeposit: boolean;
+  isRenovated: boolean;
+  hasAutdoor: boolean;
+  hasAlarm: boolean;
+  hasCam: boolean;
+  hasSecPers: boolean;
 }
 
+export interface State extends FormsData {}
+
 export interface Props {
+  initialValue?: Partial<FormsData>;
   onSubmit(value: FormsData): void;
 }
 
 export interface State extends FormsData {}
+
+function defaultStateFactory(): State {
+  return {
+    size: 3,
+    hasLift: false,
+    hasDeposit: false,
+    isRenovated: false,
+    hasAutdoor: false,
+    hasAlarm: false,
+    hasCam: false,
+    hasSecPers: false,
+  };
+}
 
 export class ParkingForm extends Component<Props, State> {
   private _form!: HTMLFormElement;
@@ -31,18 +43,10 @@ export class ParkingForm extends Component<Props, State> {
     super(props);
 
     this.state = {
-      isOpen: false,
-      size: 1,
-      lift: false,
-      deposit: false,
-      renovated: false,
-      autdoor: false,
-      alarm: false,
-      cam: false,
-      sec_pers: false,
+      ...defaultStateFactory(),
+      ...((props && props.initialValue) || {}),
     };
 
-    this.toggleVisibility = this.toggleVisibility.bind(this);
     this.resetForm = this.resetForm.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
@@ -53,10 +57,6 @@ export class ParkingForm extends Component<Props, State> {
     if (ref) {
       this._form = ref as HTMLFormElement;
     }
-  }
-
-  public toggleVisibility() {
-    this.setState({ isOpen: !this.state.isOpen });
   }
 
   public onSubmit(e: Event) {
@@ -71,108 +71,131 @@ export class ParkingForm extends Component<Props, State> {
     if (this._form) {
       this._form.reset();
     }
+    this.setState(defaultStateFactory(), () => this.props.onSubmit(this.state));
   }
 
-  public render(_, { size, lift, deposit, renovated, autdoor, alarm, cam, sec_pers }: State) {
+  public render() {
     return (
       <div>
-        <button type="button" class="btn" onClick={this.toggleVisibility}>
-          Click Me
-        </button>
-        {this.state.isOpen && (
-          <form className={style.parking_form} ref={this.bindForm} onSubmit={this.onSubmit}>
-            <div class="contain">
-              <br/>
-              <h2>Add more details</h2>
-              <p class="textp">
-                Please fill in this form to add more <br /> details to your
-                request.
-              </p>
-              <label for="size" type="size">
-                <b>Size</b>
-                <br />
-                <select
-                  //value={this.state.size}
-                  className={['custom-select', 'd-block', 'w-100'].join(' ')}
-                  onChange={linkstate(this, String(this.state.size))}
-                >
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </select>
+        <form
+          className={style.parking_form}
+          ref={this.bindForm}
+          onSubmit={this.onSubmit}
+        >
+          <div class="contain">
+            <br />
+            <h2>Add more details</h2>
+            <p class="textp">
+              Please fill in this form to add more <br /> details to your
+              request.
+            </p>
+            <label for="size" type="size">
+              <b>Size</b>
+              <br />
+              <select
+                value={this.state.size}
+                className={'custom-select d-block w-100'}
+                onChange={linkstate(this, 'size')}
+              >
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+              </select>
+            </label>
+            <br />
+            <fieldset class="inputGroup">
+              <legend>Choose some extras</legend>
+              <label className={style['parking-form__label']}>
+                <input
+                  type="checkbox"
+                  className={style['parking-form__checkbox']}
+                  checked={this.state.hasLift}
+                  onChange={linkstate(this, 'hasLift', 'target.checked')}
+                />
+                Lift
               </label>
               <br />
-              <fieldset class="inputGroup">
-                <legend>Choose some extras</legend>
-                <label className={'custom-radio'}>
-                  {' '}
-                  <input type="checkbox" onChange={linkstate(this, String(this.state.lift))}/>
-                  <span className={style.checkmark} />
-                  Lift
-                </label>
-                <br />
-                <label className={'custom-radio'}>
-                  {' '}
-                  <input type="checkbox" onChange={linkstate(this, String(this.state.deposit))}/>
-                  <span className={style.checkmark} />
-                  Deposit needed
-                </label>
-                <br />
-                <label className={'custom-radio'}>
-                  {' '}
-                   <input type="checkbox" onChange={linkstate(this, String(this.state.renovated))}/>
-                  <span className={style.checkmark} />
-                  Renovated
-                </label>
-                <br />
-                <label className={'custom-radio'}>
-                  {' '}
-                   <input type="checkbox" onChange={linkstate(this, String(this.state.autdoor))}/>
-                  <span className={style.checkmark} />
-                  Automatic doors
-                </label>
-                <br />
-                <label className={'custom-radio'}>
-                  {' '}
-                   <input type="checkbox" onChange={linkstate(this, String(this.state.alarm))}/>
-                  <span className={style.checkmark} />
-                  Security Alarm
-                </label>
-                <br />
-                <label className={'custom-radio'}>
-                  {' '}
-                   <input type="checkbox"  onChange={linkstate(this, String(this.state.cam))}/>
-                  <span className={style.checkmark} />
-                  Security cams
-                </label>
-                <br />
-                <label className={'custom-radio'}>
-                  {' '}
-                   <input type="checkbox"  onChange={linkstate(this, String(this.state.sec_pers))}/>
-                  <span className={style.checkmark} />
-                  Security personal
-                </label>
-                <br />
-                <div className={style.clearfix}>
-                  <button
-                    type="reset"
-                    onClick={this.resetForm}
-                    class="cancelbtn btn btn-secondary"
-                  >
-                    {' '}
-                    Cancel{' '}
-                  </button>
-                  <button type="submit" class="btn btn-primary">
-                    {' '}
-                    Search{' '}
-                  </button>
-                </div>
-              </fieldset>
-            </div>
-          </form>
-        )}
+              <label className={style['parking-form__label']}>
+                <input
+                  type="checkbox"
+                  className={style['parking-form__checkbox']}
+                  checked={this.state.hasDeposit}
+                  onChange={linkstate(this, 'hasDeposit', 'target.checked')}
+                />
+                Deposit needed
+              </label>
+              <br />
+              <label className={style['parking-form__label']}>
+                <input
+                  type="checkbox"
+                  className={style['parking-form__checkbox']}
+                  checked={this.state.isRenovated}
+                  onChange={linkstate(this, 'isRenovated', 'target.checked')}
+                />
+                Renovated
+              </label>
+              <br />
+              <label className={style['parking-form__label']}>
+                <input
+                  type="checkbox"
+                  className={style['parking-form__checkbox']}
+                  checked={this.state.hasAutdoor}
+                  onChange={linkstate(this, 'hasAutdoor', 'target.checked')}
+                />
+                Automatic doors
+              </label>
+              <br />
+              <label className={style['parking-form__label']}>
+                <input
+                  type="checkbox"
+                  className={style['parking-form__checkbox']}
+                  checked={this.state.hasAlarm}
+                  onChange={linkstate(this, 'hasAlarm', 'target.checked')}
+                />
+                Security Alarm
+              </label>
+              <br />
+              <label className={style['parking-form__label']}>
+                <input
+                  type="checkbox"
+                  className={style['parking-form__checkbox']}
+                  checked={this.state.hasCam}
+                  onChange={linkstate(this, 'hasCam', 'target.checked')}
+                />
+                Security cams
+              </label>
+              <br />
+              <label className={style['parking-form__label']}>
+                <input
+                  type="checkbox"
+                  className={style['parking-form__checkbox']}
+                  checked={this.state.hasSecPers}
+                  onChange={linkstate(this, 'hasSecPers', 'target.checked')}
+                />
+                Security personal
+              </label>
+              <br />
+              <div className={style.clearfix}>
+                <button
+                  type="reset"
+                  onClick={this.resetForm}
+                  class="cancelbtn btn btn-secondary"
+                >
+                  Cancel{' '}
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  style="margin-left: 0.5em;"
+                >
+                  Search{' '}
+                </button>
+              </div>
+            </fieldset>
+          </div>
+        </form>
       </div>
     );
   }
