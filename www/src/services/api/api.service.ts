@@ -4,7 +4,7 @@ import { authedFetch } from '../authed-fetch';
 declare var BASE_API_PATH: string;
 
 export const defaultFeatures: ParkingFeatures = {
-  parkingType: 3,
+  parkingType: 2,
   hasLift: false,
   hasPlan: false,
   autDoor: false,
