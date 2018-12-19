@@ -7,7 +7,6 @@ export interface FormsData {
   size: number;
   hasLift: boolean;
   hasDeposit: boolean;
-  isRenovated: boolean;
   hasAutdoor: boolean;
   hasAlarm: boolean;
   hasCam: boolean;
@@ -28,7 +27,6 @@ function defaultStateFactory(): State {
     size: 2,
     hasLift: false,
     hasDeposit: false,
-    isRenovated: false,
     hasAutdoor: false,
     hasAlarm: false,
     hasCam: false,
@@ -90,7 +88,6 @@ export class ParkingForm extends Component<Props, State> {
             </p>
             <label for="size" type="size">
               <b>Size</b>
-              <br />
               <select
                 value={this.state.size}
                 className={'custom-select d-block w-100'}
@@ -114,7 +111,6 @@ export class ParkingForm extends Component<Props, State> {
                 />
                 Lift
               </label>
-              <br />
               <label className={style['parking-form__label']}>
                 <input
                   type="checkbox"
@@ -124,17 +120,6 @@ export class ParkingForm extends Component<Props, State> {
                 />
                 Deposit needed
               </label>
-              <br />
-              <label className={style['parking-form__label']}>
-                <input
-                  type="checkbox"
-                  className={style['parking-form__checkbox']}
-                  checked={this.state.isRenovated}
-                  onChange={linkstate(this, 'isRenovated', 'target.checked')}
-                />
-                Renovated
-              </label>
-              <br />
               <label className={style['parking-form__label']}>
                 <input
                   type="checkbox"
@@ -144,7 +129,6 @@ export class ParkingForm extends Component<Props, State> {
                 />
                 Automatic doors
               </label>
-              <br />
               <label className={style['parking-form__label']}>
                 <input
                   type="checkbox"
@@ -154,7 +138,6 @@ export class ParkingForm extends Component<Props, State> {
                 />
                 Security Alarm
               </label>
-              <br />
               <label className={style['parking-form__label']}>
                 <input
                   type="checkbox"
@@ -164,7 +147,6 @@ export class ParkingForm extends Component<Props, State> {
                 />
                 Security cams
               </label>
-              <br />
               <label className={style['parking-form__label']}>
                 <input
                   type="checkbox"
@@ -174,7 +156,6 @@ export class ParkingForm extends Component<Props, State> {
                 />
                 Security personal
               </label>
-              <br />
               <div className={style.clearfix}>
                 <button
                   type="reset"

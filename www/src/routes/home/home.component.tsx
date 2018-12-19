@@ -47,7 +47,6 @@ const features$ = new BehaviorSubject<FormsData>({
   size: 2,
   hasLift: false,
   hasDeposit: false,
-  isRenovated: false,
   hasAutdoor: false,
   hasAlarm: false,
   hasCam: false,
