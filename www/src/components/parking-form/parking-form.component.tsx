@@ -25,7 +25,7 @@ export interface State extends FormsData {}
 
 function defaultStateFactory(): State {
   return {
-    size: 3,
+    size: 2,
     hasLift: false,
     hasDeposit: false,
     isRenovated: false,
@@ -61,7 +61,6 @@ export class ParkingForm extends Component<Props, State> {
 
   public onSubmit(e: Event) {
     e.preventDefault();
-    console.log(e);
     if (this.props.onSubmit) {
       this.props.onSubmit(this.state);
     }
@@ -97,11 +96,10 @@ export class ParkingForm extends Component<Props, State> {
                 className={'custom-select d-block w-100'}
                 onChange={linkstate(this, 'size')}
               >
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
-                <option value={4}>4</option>
-                <option value={5}>5</option>
+                <option value={1}>Car and Motorcycle</option>
+                <option value={2}>Compact Car</option>
+                <option value={3}>Motorcycle</option>
+                <option value={4}>Sedan Car</option>
               </select>
             </label>
             <br />

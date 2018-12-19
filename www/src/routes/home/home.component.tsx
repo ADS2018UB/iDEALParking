@@ -44,7 +44,7 @@ export interface State {
 }
 
 const features$ = new BehaviorSubject<FormsData>({
-  size: 3,
+  size: 2,
   hasLift: false,
   hasDeposit: false,
   isRenovated: false,

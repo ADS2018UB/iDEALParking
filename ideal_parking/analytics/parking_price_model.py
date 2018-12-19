@@ -21,14 +21,14 @@ class OutOfServerAreaError(Exception):
 
 
 def compute_parking_price(
-        lat, lng, parking_type=3, has_lift=False, has_plan=False, aut_door=False,
+        lat, lng, parking_type=2, has_lift=False, has_plan=False, aut_door=False,
         alarm=False, sec_cam=False, sec_pers=False):
     """
     Function to call the prediction model
     """
 
-    if not isinstance(parking_type, int) or parking_type < 1 or parking_type > 5:
-        raise ValueError('parking_type must be an integer between 1 and 5')
+    if not isinstance(parking_type, int) or parking_type < 1 or parking_type > 4:
+        raise ValueError('parking_type must be an integer between 1 and 4')
 
     if not isinstance(has_lift, bool):
         raise ValueError('has_lift must be a boolean')
