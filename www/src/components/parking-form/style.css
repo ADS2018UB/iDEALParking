@@ -1,5 +1,6 @@
 .parking-form__label {
   margin-bottom: 1em;
+  display: block;
 }
 
 .parking-form__checkbox {
