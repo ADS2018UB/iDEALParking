@@ -1,4 +1,4 @@
 /**
  * Barrel
  */
-export { ParkingForm, State } from './parking-form.component';
+export { ParkingForm, State, FormsData } from './parking-form.component';

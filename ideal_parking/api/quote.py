@@ -44,7 +44,7 @@ def get_quote():
                 'result': {
                     'price': compute_parking_price(
                         form.latitude.data, form.longitude.data,
-                        parking_type=form.parkingType.data if user else 3,
+                        parking_type=form.parkingType.data if user else 2,
                         has_lift=form.hasLift.data if user else False,
                         has_plan=form.hasPlan.data if user else False,
                         aut_door=form.autDoor.data if user else False,

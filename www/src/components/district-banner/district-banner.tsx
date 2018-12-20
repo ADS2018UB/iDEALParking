@@ -14,7 +14,7 @@ export class DistrictBanner extends Component<District, {}> {
         />
         <header className={style.district_banner__header}>
           {this.props.name}
-          <div style="font-size: 0.75em">Barcelona</div>
+          <div style="font-size: 0.75em">Barcelona </div>
         </header>
       </section>
     );

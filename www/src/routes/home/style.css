@@ -2,3 +2,34 @@
   min-height: 25em;
   flex: 1 1 auto;
 }
+
+.close:hover {
+  color: white;
+}
+
+.close {
+  size: 3px;
+  padding-right: 5px;
+}
+
+.panel-portal__content-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden auto;
+}
+
+.panel-portal__close-btn {
+  background-color: lightcoral;
+  border: 0 none;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  padding: 0.5em 1em;
+}
